@@ -63,12 +63,12 @@ public class YourCommandExecutor implements CommandExecutor<YourExtendCommand> {
     @Override
     public void executeInMoverTransaction(CommandExecution executionContext, TwCommand command) {
         try {
-            if (!messageChannel.send(command.getDataEvent())) {
-                // re-executing the event
-                commandExecution.retry();
-            } else {
+            if (messageChannel.send(command.getDataEvent())) {
                 // the event was successful, remove it from the queue
                 commandExecution.ok();
+            } else {
+                // re-executing the event
+                commandExecution.retry();
             }
         } catch (Exception e) {
             if (isTransientException(e)) {
