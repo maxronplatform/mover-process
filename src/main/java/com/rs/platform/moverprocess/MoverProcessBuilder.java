@@ -24,7 +24,7 @@ public final class MoverProcessBuilder {
     private MoverProcessDaoBuilder moverProcessDaoBuilder;
     private PlatformTransactionManager transactionManager;
 
-    private final Map<String, CommandExecutor<MoverProcessCommand>> commandExecutors = new HashMap<>();
+    private final Map<String, CommandExecutor<Command>> commandExecutors = new HashMap<>();
 
     public MoverProcessBuilder() {
     }
@@ -81,10 +81,10 @@ public final class MoverProcessBuilder {
         Validate.validState(checkDataSourceConformance(moverProcessDaoBuilder, this.transactionManager), "Mismatch of DataSource and PlatformTransactionManager");
 
         MoverProcessDao moverProcessDao = moverProcessDaoBuilder.create();
-        return new MoverProcessImpl<MoverProcessCommand>(commandWorkerName, moverProcessDao, commandExecutors, transactionManager, tracing, pollCommandsTimeout, retryCommandsTimeout, threads);
+        return new MoverProcessImpl<Command>(commandWorkerName, moverProcessDao, commandExecutors, transactionManager, tracing, pollCommandsTimeout, retryCommandsTimeout, threads);
     }
 
-    private <T extends MoverProcessCommand> String canonicalCommandClassName(CommandExecutor<T> commandExecutor) {
+    private <T extends Command> String canonicalCommandClassName(CommandExecutor<T> commandExecutor) {
         return ((ParameterizedType) commandExecutor.getClass()
                 .getGenericInterfaces()[0]).getActualTypeArguments()[0].getTypeName();
     }

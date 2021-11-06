@@ -30,7 +30,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import static java.lang.String.format;
 
 @Slf4j
-class MoverProcessImpl<T extends MoverProcessCommand> implements MoverProcess {
+class MoverProcessImpl<T extends Command> implements MoverProcess {
     private static final String TRACE_ID = "X-B3-TraceId";
     private static final String MOVER_TASK_HEADER_ORIGINAL_REQUEST_TRACE_ID = "MoverProcess.Internal.RequestTraceId";
     private static final String MOVER_TASK_HEADER_ORIGINAL_REQUEST_TRACE_CONTEXT = "MoverProcess.Internal.RequestTraceContext";
@@ -99,13 +99,13 @@ class MoverProcessImpl<T extends MoverProcessCommand> implements MoverProcess {
     }
 
     @Override
-    public void submit(MoverProcessCommand moverProcessCommand) {
-        Validate.notNull(moverProcessCommand, "The validated moverProcessCommand is null");
-        propagateDiagnosticContext(moverProcessCommand);
+    public void submit(Command command) {
+        Validate.notNull(command, "The validated command is null");
+        propagateDiagnosticContext(command);
         submitTaskTxTemplate.execute((status) -> {
             try {
-                moverProcessDao.createOrUpdateTrackingKey(moverProcessCommand.getTrackingKey());
-                moverProcessDao.addCommand(moverProcessCommand);
+                moverProcessDao.createOrUpdateTrackingKey(command.getTrackingKey());
+                moverProcessDao.addCommand(command);
             } catch (Exception e) {
                 log.error(e.getMessage());
                 status.setRollbackOnly();
@@ -115,26 +115,26 @@ class MoverProcessImpl<T extends MoverProcessCommand> implements MoverProcess {
         signalTaskSubmitted();
     }
 
-    private void propagateDiagnosticContext(MoverProcessCommand moverProcessCommand) {
+    private void propagateDiagnosticContext(Command command) {
         if (tracing != null) {
-            propagateTracingContext(moverProcessCommand);
+            propagateTracingContext(command);
         } else {
-            propagateFallbackTraceId(moverProcessCommand);
+            propagateFallbackTraceId(command);
         }
     }
 
-    private void propagateTracingContext(MoverProcessCommand moverProcessCommand) {
+    private void propagateTracingContext(Command command) {
         TraceContext traceContext = tracing.currentTraceContext().get();
         if (traceContext != null) {
             MoverProcessTraceContextHolder traceContextHolder = MoverProcessTraceContextHolder.hold(traceContext);
-            moverProcessCommand.addHeader(MOVER_TASK_HEADER_ORIGINAL_REQUEST_TRACE_CONTEXT, traceContextHolder);
+            command.addHeader(MOVER_TASK_HEADER_ORIGINAL_REQUEST_TRACE_CONTEXT, traceContextHolder);
         }
     }
 
-    private void propagateFallbackTraceId(MoverProcessCommand moverProcessCommand) {
+    private void propagateFallbackTraceId(Command command) {
         String traceId = MDC.get(TRACE_ID);
         if (traceId != null) {
-            moverProcessCommand.addHeader(MOVER_TASK_HEADER_ORIGINAL_REQUEST_TRACE_ID, traceId);
+            command.addHeader(MOVER_TASK_HEADER_ORIGINAL_REQUEST_TRACE_ID, traceId);
         }
     }
 
@@ -230,7 +230,7 @@ class MoverProcessImpl<T extends MoverProcessCommand> implements MoverProcess {
             return execution;
         }
 
-        private void handleExecutionResults(CommandExecution execution, MoverProcessCommand command) {
+        private void handleExecutionResults(CommandExecution execution, Command command) {
             if (execution.isOk()) {
                 log.debug("Mover Process worker: '{}', task id: '{}' has been processed", name, command.getId());
                 moverProcessDao.removeCommand(command.getId());
@@ -268,7 +268,7 @@ class MoverProcessImpl<T extends MoverProcessCommand> implements MoverProcess {
             }
         }
 
-        private void runWithDiagnosticContextPropagation(MoverProcessCommand command, Runnable action) {
+        private void runWithDiagnosticContextPropagation(Command command, Runnable action) {
             if (tracer != null) {
                 runWithTracingContextPropagation(command, action);
             } else {
@@ -276,7 +276,7 @@ class MoverProcessImpl<T extends MoverProcessCommand> implements MoverProcess {
             }
         }
 
-        private void runWithTracingContextPropagation(MoverProcessCommand command, Runnable action) {
+        private void runWithTracingContextPropagation(Command command, Runnable action) {
             String spanName = format("%s:%s", name, command.getClass().getCanonicalName());
             MoverProcessTraceContextHolder parentTraceContextHolder = command.getHeader(MOVER_TASK_HEADER_ORIGINAL_REQUEST_TRACE_CONTEXT, MoverProcessTraceContextHolder.class);
             TraceContext parentTraceContext = parentTraceContextHolder != null ? parentTraceContextHolder.toTraceContext() : null;
@@ -293,7 +293,7 @@ class MoverProcessImpl<T extends MoverProcessCommand> implements MoverProcess {
             }
         }
 
-        private void runWithFallbackTraceIdPropagation(MoverProcessCommand command, Runnable action) {
+        private void runWithFallbackTraceIdPropagation(Command command, Runnable action) {
             String traceId = command.getHeader(MOVER_TASK_HEADER_ORIGINAL_REQUEST_TRACE_ID, String.class);
             if (traceId == null) {
                 traceId = format("internal-%s", generateTraceId());

@@ -9,24 +9,24 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public abstract class AbstractMoverProcessCommand implements MoverProcessCommand {
+public abstract class AbstractCommand implements Command {
     private String id;
     private String trackingKey;
     private Map<String, Object> headers;
 
-    protected AbstractMoverProcessCommand() {
+    protected AbstractCommand() {
     }
 
-    public AbstractMoverProcessCommand(@JsonProperty("id") String id,
-                                       @JsonProperty("trackingKey") String trackingKey) {
+    public AbstractCommand(@JsonProperty("id") String id,
+                           @JsonProperty("trackingKey") String trackingKey) {
         this.id = id;
         this.trackingKey = trackingKey;
         this.headers = new HashMap<>();
     }
 
-    public AbstractMoverProcessCommand(@JsonProperty("id") String id,
-                                       @JsonProperty("trackingKey") String trackingKey,
-                                       @JsonProperty("headers") Map<String, Object> headers) {
+    public AbstractCommand(@JsonProperty("id") String id,
+                           @JsonProperty("trackingKey") String trackingKey,
+                           @JsonProperty("headers") Map<String, Object> headers) {
         this.id = id;
         this.trackingKey = trackingKey;
         this.headers = headers;
@@ -54,7 +54,7 @@ public abstract class AbstractMoverProcessCommand implements MoverProcessCommand
     }
 
     @Override
-    public MoverProcessCommand addHeader(String name, Object value) {
+    public Command addHeader(String name, Object value) {
         return addGenericHeader(name, value);
     }
 
@@ -62,7 +62,7 @@ public abstract class AbstractMoverProcessCommand implements MoverProcessCommand
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AbstractMoverProcessCommand that = (AbstractMoverProcessCommand) o;
+        AbstractCommand that = (AbstractCommand) o;
         return Objects.equals(getTrackingKey(), that.getTrackingKey()) &&
                 Objects.equals(getId(), that.getId());
     }
@@ -72,7 +72,7 @@ public abstract class AbstractMoverProcessCommand implements MoverProcessCommand
         return Objects.hash(getTrackingKey(), getId());
     }
 
-    private MoverProcessCommand addGenericHeader(@Nonnull String name, @Nonnull Object value) {
+    private Command addGenericHeader(@Nonnull String name, @Nonnull Object value) {
         Validate.notNull(name, "The validated header key is null");
         Validate.notNull(value, "The validated header value is null");
         headers.put(name, value);

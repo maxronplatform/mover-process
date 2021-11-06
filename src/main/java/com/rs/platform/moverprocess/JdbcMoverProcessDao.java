@@ -24,7 +24,7 @@ class JdbcMoverProcessDao implements MoverProcessDao {
 
     private final JdbcTemplate jdbcTemplate;
     private final CommandSerDes commandSerDes;
-    private final Function<String, Class<? extends MoverProcessCommand>> commandTypeResolver;
+    private final Function<String, Class<? extends Command>> commandTypeResolver;
 
     JdbcMoverProcessDao(DataSource h2DataSourceModePostgreSql, CommandSerDes commandSerDes, String tasksLogTableName, String tracksTableName) {
         this.jdbcTemplate = new JdbcTemplate(h2DataSourceModePostgreSql);
@@ -36,7 +36,7 @@ class JdbcMoverProcessDao implements MoverProcessDao {
     }
 
     @Override
-    public void addCommand(@Nonnull MoverProcessCommand command) {
+    public void addCommand(@Nonnull Command command) {
         jdbcTemplate.update(insertCommandSql,
                 command.getId(), commandSerDes.serialize(command), command.getTrackingKey(), command.getClass().getCanonicalName());
     }
@@ -44,7 +44,7 @@ class JdbcMoverProcessDao implements MoverProcessDao {
     @SuppressWarnings("unchecked")
     @Nullable
     @Override
-    public <T extends MoverProcessCommand> T latestCommandByTrackingKey(@Nonnull String trackingKey) {
+    public <T extends Command> T latestCommandByTrackingKey(@Nonnull String trackingKey) {
         return jdbcTemplate.query(latestCommandSql, rs -> {
             if (rs.next()) {
                 Class<T> taskType = (Class<T>) commandTypeResolver.apply(rs.getString("task_type"));
@@ -119,8 +119,8 @@ class JdbcMoverProcessDao implements MoverProcessDao {
                 "    internal_id  SERIAL PRIMARY KEY, " +
                 "    task_id      VARCHAR(100)  NOT NULL UNIQUE, " +
                 "    task_type    VARCHAR(2000), " +
-                "    headers_json VARCHAR(2000), " +
-                "    payload_json VARCHAR(4000), " +
+                "    headers_json TEXT, " +
+                "    payload_json TEXT, " +
                 "    task_key     VARCHAR(1000) NOT NULL, " +
                 "    created_at   TIMESTAMP DEFAULT now() " +
                 ")", tasksLogTableName);

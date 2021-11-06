@@ -5,10 +5,10 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 interface MoverProcessDao {
-    void addCommand(@Nonnull MoverProcessCommand command);
+    void addCommand(@Nonnull Command command);
 
     @Nullable
-    <T extends MoverProcessCommand> T latestCommandByTrackingKey(@Nonnull String trackingKey);
+    <T extends Command> T latestCommandByTrackingKey(@Nonnull String trackingKey);
 
     void removeCommand(@Nonnull String trackingKey);
 

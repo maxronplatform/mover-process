@@ -2,7 +2,7 @@ package com.rs.platform.moverprocess;
 
 import java.util.Map;
 
-public interface MoverProcessCommand {
+public interface Command {
     String getId();
 
     String getTrackingKey();
@@ -11,5 +11,5 @@ public interface MoverProcessCommand {
 
     <V> V getHeader(String name, Class<V> valueType);
 
-    MoverProcessCommand addHeader(String name, Object value);
+    Command addHeader(String name, Object value);
 }

@@ -5,6 +5,7 @@ import com.rs.platform.moverprocess.CommandExecutor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -14,11 +15,11 @@ import static java.lang.String.format;
 
 @Component
 @Slf4j
-public class TwCommandExecutor implements CommandExecutor<TwMoverProcessCommand> {
+public class TwCommandExecutor implements CommandExecutor<TwCommand> {
     public static final String MDC_PREFIX = "tw-mdc-";
 
     @Override
-    public void executeInMoverTransaction(CommandExecution executionContext, TwMoverProcessCommand command) {
+    public void executeInMoverTransaction(CommandExecution executionContext, TwCommand command) {
         TwDataEvent event = command.getDataEvent();
 
         executeWithMdc(

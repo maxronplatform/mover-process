@@ -16,5 +16,5 @@ public interface MoverProcess extends AutoCloseable {
 
     boolean isRunning();
 
-    void submit(MoverProcessCommand moverProcessCommand);
+    void submit(Command command);
 }

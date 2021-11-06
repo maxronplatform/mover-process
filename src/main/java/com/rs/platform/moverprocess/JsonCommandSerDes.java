@@ -19,7 +19,7 @@ class JsonCommandSerDes implements CommandSerDes {
     }
 
     @Override
-    public <T extends MoverProcessCommand> String serialize(T command) {
+    public <T extends Command> String serialize(T command) {
         if (command == null) {
             return null;
         }
@@ -31,7 +31,7 @@ class JsonCommandSerDes implements CommandSerDes {
     }
 
     @Override
-    public <T extends MoverProcessCommand> T deserialize(String dataJson, Class<T> targetClass) {
+    public <T extends Command> T deserialize(String dataJson, Class<T> targetClass) {
         if (dataJson == null || dataJson.isEmpty() || targetClass == null) {
             return null;
         }
