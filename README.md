@@ -14,9 +14,9 @@ Let's add the following dependency to the pom.xml file:*
 
 ```xml
 <dependency>
-    <groupId>com.rs.platform</groupId>
+    <groupId>org.maxron.platform</groupId>
     <artifactId>mover-process</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 

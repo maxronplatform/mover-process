@@ -10,11 +10,32 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.rs.platform</groupId>
+    <groupId>org.maxron.platform</groupId>
     <artifactId>mover-process</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>Mover Process</name>
-    <description>The Mover Process application</description>
+    <description>The Mover Process app is designed for guaranteed processing of event queues</description>
+    <url>https://github.com/maxronplatform/mover-process</url>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Ruslan Sabirov</name>
+            <email>sabirov_ruslan@outlook.com</email>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/maxronplatform/mover-process.git</connection>
+        <developerConnection>scm:git:ssh://github.com:maxronplatform/mover-process.git</developerConnection>
+        <url>https://github.com/maxronplatform/mover-process/tree/master</url>
+    </scm>
 
     <properties>
         <java.version>11</java.version>
@@ -31,16 +52,10 @@
 
         <maven-source-plugin.version>3.2.0</maven-source-plugin.version>
         <maven-enforcer-plugin.version>3.0.0</maven-enforcer-plugin.version>
-        <maven-release-plugin.version>3.0.0-M4</maven-release-plugin.version>
         <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-sleuth</artifactId>
@@ -154,18 +169,6 @@
         </pluginManagement>
 
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>${maven-release-plugin.version}</version>
-                <configuration>
-                    <tagNameFormat>@{project.version}</tagNameFormat>
-                    <autoVersionSubmodules>true</autoVersionSubmodules>
-                    <useReleaseProfile>false</useReleaseProfile>
-                    <allowTimestampedSnapshots>true</allowTimestampedSnapshots>
-                </configuration>
-            </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
