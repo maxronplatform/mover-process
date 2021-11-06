@@ -1,6 +1,7 @@
-# _The Mover Process application._
+# _Mover Process_
 
-***The dependency is designed for guaranteed processing of event queues in Spring applications. If you need to process 100% of events quickly without losing any, then this is the solution for you.***
+***This dependency is designed for guaranteed processing of event queues in Spring applications. 
+If you need to process a lot of events quickly, guaranteed not to lose any, even if your app crashes, then this is the solution for you.***
 
 ## Quick start
 
@@ -8,7 +9,8 @@
 
 #### 1. Add dependency
 
-*If we use Spring Boot 2 or Spring 5, then we can utilize the mover-process starter package. Let's add the following dependency to the pom.xml file:*
+*If we use Spring Boot 2 or Spring 5, then we can utilize the Mover Process starter package. 
+Let's add the following dependency to the pom.xml file:*
 
 ```xml
 <dependency>
@@ -32,10 +34,10 @@ public class Application {
 	}
 }
 ```
-***Note: After we enable Mover Process, for the minimal setup, we must implements ``CommandExecutor.class`` and ``Command.class``. 
-A MoverProcessCommand is an event object that the CommandExecutor interacts with.***
+***Note: After we enable Mover Process, for the minimal setup, we must implement ``CommandExecutor.class`` and ``Command.class``.
+``CommandExecutor.class`` executes ``Command.class`` events in transaction***
 
-#### 3. Implements Command or extends AbstractCommand
+#### 3. Implement Command or extend AbstractCommand
 
 ```java
 @Getter
@@ -50,7 +52,7 @@ public class YourExtendCommand extends AbstractCommand {
 ```
 
 
-#### 4. Implements CommandExecutor<T extends Command>
+#### 4. Implement CommandExecutor<T extends Command>
 
 ```java
 @Component
@@ -60,22 +62,20 @@ public class YourCommandExecutor implements CommandExecutor<YourExtendCommand> {
     
     @Override
     public void executeInMoverTransaction(CommandExecution executionContext, TwCommand command) {
-        // example -> 
         try {
             if (!messageChannel.send(command.getDataEvent())) {
-                
+                // re-executing the event
                 commandExecution.retry();
             } else {
-                
+                // the event was successful, remove it from the queue
                 commandExecution.ok();
             }
         } catch (Exception e) {
             if (isTransientException(e)) {
-                
+                // re-executing the event
                 commandExecution.retry();
-
             } else {
-
+                // stopping event processing to fix the error
                 commandExecution.stop(e);
             }
         }
