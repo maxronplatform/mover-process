@@ -20,17 +20,6 @@ Let's add the following dependency to the pom.xml file:*
 </dependency>
 ```
 
-***Note: As of February 2021, all new projects began being provisioned on https://s01.oss.sonatype.org. Add the repository to your pom.xml file***
-```xml
-<repositories>
-    <repository>
-      <id>maven-sonatype</id>
-      <url>https://s01.oss.sonatype.org/content/repositories/releases</url>
-      <layout>default</layout>
-    </repository>
-</repositories>
-```
-
 #### 2. Enable Mover Process
 
 *To enable Mover Process, Spring makes good use of annotations, much like enabling any other configuration level feature in the framework.
@@ -40,9 +29,9 @@ We can enable the Mover Process feature simply by adding the ```@EnableMoverProc
 @EnableMoverProcess
 @SpringBootApplication
 public class Application {
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
 }
 ```
 ***Note: After we enable Mover Process, for the minimal setup, we must implement ``CommandExecutor.class`` and ``Command.class``.
@@ -94,5 +83,15 @@ public class YourCommandExecutor implements CommandExecutor<YourExtendCommand> {
 }
 ```
 
+***Note: As of February 2021, all new projects began being provisioned on https://s01.oss.sonatype.org. Add the repository to your pom.xml file***
+```xml
+<repositories>
+    <repository>
+      <id>maven-sonatype</id>
+      <url>https://s01.oss.sonatype.org/content/repositories/releases</url>
+      <layout>default</layout>
+    </repository>
+</repositories>
+```
 
 
