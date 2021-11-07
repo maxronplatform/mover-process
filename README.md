@@ -3,9 +3,7 @@
 ***This dependency is designed for guaranteed processing of event queues in Spring applications. 
 If you need to process a lot of events quickly, guaranteed not to lose any, even if your app crashes, then this is the solution for you.***
 
-## Quick start
-
-### Spring Boot
+### Quick start Spring Boot
 
 #### 1. Add dependency
 
@@ -19,6 +17,7 @@ Let's add the following dependency to the pom.xml file:*
     <version>1.0.2</version>
 </dependency>
 ```
+
 
 #### 2. Enable Mover Process
 
@@ -36,6 +35,7 @@ public class Application {
 ```
 ***Note: After we enable Mover Process, for the minimal setup, we must implement ``CommandExecutor.class`` and ``Command.class``.
 ``CommandExecutor.class`` executes ``Command.class`` events in transaction***
+
 
 #### 3. Implement Command or extend AbstractCommand
 
@@ -82,6 +82,9 @@ public class YourCommandExecutor implements CommandExecutor<YourExtendCommand> {
     }
 }
 ```
+
+
+#### 5. Other
 
 ***Note: As of February 2021, all new projects began being provisioned on https://s01.oss.sonatype.org. Add the repository to your pom.xml file***
 ```xml
