@@ -1,4 +1,4 @@
-rsp:
+maxron:
   mover-process:
     jdbc-url: jdbc:h2:mem:mover_process_test_db
     username: test

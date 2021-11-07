@@ -16,11 +16,11 @@ Let's add the following dependency to the pom.xml file:*
 <dependency>
     <groupId>org.maxron.platform</groupId>
     <artifactId>mover-process</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 
-***Note: As of February 2021, all new projects began being provisioned on https://s01.oss.sonatype.org. Add repository in your pom.xml file***
+***Note: As of February 2021, all new projects began being provisioned on https://s01.oss.sonatype.org. Add the repository to your pom.xml file***
 ```xml
 <repositories>
     <repository>
