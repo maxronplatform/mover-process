@@ -20,6 +20,17 @@ Let's add the following dependency to the pom.xml file:*
 </dependency>
 ```
 
+***Note: As of February 2021, all new projects began being provisioned on https://s01.oss.sonatype.org. Add repository in your pom.xml file***
+```xml
+<repositories>
+    <repository>
+      <id>maven-sonatype</id>
+      <url>https://s01.oss.sonatype.org/content/repositories/releases</url>
+      <layout>default</layout>
+    </repository>
+</repositories>
+```
+
 #### 2. Enable Mover Process
 
 *To enable Mover Process, Spring makes good use of annotations, much like enabling any other configuration level feature in the framework.
