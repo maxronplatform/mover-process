@@ -3,8 +3,12 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+
+### MAVEN ###
 .mvn/**
 mvnw
+release.properties
+pom.xml.releaseBackup
 
 ### STS ###
 .apt_generated

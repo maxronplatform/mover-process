@@ -37,7 +37,7 @@
 
     <scm>
         <connection>scm:git:git://github.com/maxronplatform/mover-process.git</connection>
-        <developerConnection>scm:git:ssh://github.com:maxronplatform/mover-process.git</developerConnection>
+        <developerConnection>scm:git:ssh://github.com/maxronplatform/mover-process.git</developerConnection>
         <url>https://github.com/maxronplatform/mover-process/tree/master</url>
     </scm>
 
