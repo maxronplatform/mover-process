@@ -16,7 +16,7 @@ Let's add the following dependency to the pom.xml file:*
 <dependency>
     <groupId>org.maxron.platform</groupId>
     <artifactId>mover-process</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 </dependency>
 ```
 
