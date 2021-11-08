@@ -1,4 +1,4 @@
-# _Mover Process_
+# _MOVER PROCESS_
 
 ***This dependency is designed for guaranteed processing of event queues in Spring applications. 
 If you need to process a lot of events quickly, guaranteed not to lose any, even if your app crashes, then this is the solution for you.***
