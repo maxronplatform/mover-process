@@ -11,7 +11,7 @@
 
     <groupId>org.maxron.platform</groupId>
     <artifactId>mover-process</artifactId>
-    <version>2.0.4-SNAPSHOT</version>
+    <version>2.0.4</version>
     <packaging>jar</packaging>
 
     <name>Mover Process</name>
@@ -38,7 +38,7 @@
         <connection>scm:git:git@github.com:maxronplatform/mover-process.git</connection>
         <developerConnection>scm:git:git@github.com:maxronplatform/mover-process.git</developerConnection>
         <url>https://github.com/maxronplatform/mover-process/tree/master</url>
-        <tag>HEAD</tag>
+        <tag>mover-process-2.0.4</tag>
     </scm>
 
     <properties>
