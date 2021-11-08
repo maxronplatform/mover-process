@@ -28,6 +28,9 @@ class BaseMsTest {
     @Autowired
     protected MoverProcess moverProcess;
 
+    @Autowired
+    protected MoverProcessProperties moverProcessProperties;
+
     @BeforeEach
     void setUp() {
         moverProcess.start();

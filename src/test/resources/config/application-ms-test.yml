@@ -3,6 +3,5 @@ maxron:
     jdbc-url: jdbc:h2:mem:mover_process_test_db
     username: test
     password: test
-
-
+    threads: 5
 

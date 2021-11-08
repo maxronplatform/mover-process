@@ -1,19 +1,21 @@
 package org.maxron.platform.moverprocess.mstest;
 
-import org.maxron.platform.moverprocess.EnableMoverProcess;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.maxron.platform.moverprocess.EnableMoverProcess;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("The Mover Process application tests")
 @EnableMoverProcess
 public class MoverProcessMsTests extends BaseMsTest {
 
-    @DisplayName("Checking the loading of the application context")
+    @DisplayName("Checking the loading of the moverProcess context")
     @Test
-    void contextLoads() {
+    void moverProcessContextLoads() {
         assertNotNull(moverProcess);
+        assertTrue(moverProcess.isRunning());
+        assertEquals(moverProcess.workersNumber(), moverProcessProperties.getThreads());
     }
 
 }
