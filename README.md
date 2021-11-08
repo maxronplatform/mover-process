@@ -83,18 +83,3 @@ public class YourCommandExecutor implements CommandExecutor<YourExtendCommand> {
 }
 ```
 
-
-#### 5. Other
-
-***Note: As of February 2021, all new projects began being provisioned on https://s01.oss.sonatype.org. Add the repository to your pom.xml file***
-```xml
-<repositories>
-    <repository>
-      <id>maven-sonatype</id>
-      <url>https://s01.oss.sonatype.org/content/repositories/releases</url>
-      <layout>default</layout>
-    </repository>
-</repositories>
-```
-
-
