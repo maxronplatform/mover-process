@@ -248,7 +248,7 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <version>${maven-release-plugin.version}</version>
                 <configuration>
-                    <goals>deploy nexus-staging:release</goals>
+                    <goals>deploy</goals>
                     <releaseProfiles>release</releaseProfiles>
                     <useReleaseProfile>false</useReleaseProfile>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
