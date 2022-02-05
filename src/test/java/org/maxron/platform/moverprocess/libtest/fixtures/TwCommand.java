@@ -1,4 +1,4 @@
-package org.maxron.platform.moverprocess.mstest.fixtures;
+package org.maxron.platform.moverprocess.libtest.fixtures;
 
 import org.maxron.platform.moverprocess.AbstractCommand;
 import lombok.Getter;

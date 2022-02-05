@@ -1,4 +1,4 @@
-package org.maxron.platform.moverprocess.mstest.fixtures;
+package org.maxron.platform.moverprocess.libtest.fixtures;
 
 import lombok.Getter;
 import lombok.ToString;

@@ -1,9 +1,9 @@
-package org.maxron.platform.moverprocess.mstest.config;
+package org.maxron.platform.moverprocess.libtest.config;
 
 import brave.Tracing;
 import brave.propagation.CurrentTraceContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.maxron.platform.moverprocess.mstest.fixtures.TwCommandExecutor;
+import org.maxron.platform.moverprocess.libtest.fixtures.TwCommandExecutor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;

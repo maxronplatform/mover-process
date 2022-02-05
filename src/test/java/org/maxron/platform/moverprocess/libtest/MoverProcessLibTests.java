@@ -1,4 +1,4 @@
-package org.maxron.platform.moverprocess.mstest;
+package org.maxron.platform.moverprocess.libtest;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("The Mover Process application tests")
 @EnableMoverProcess
-class MoverProcessMsTests extends BaseMsTest {
+class MoverProcessLibTests extends BaseLibTest {
 
     @DisplayName("Checking the loading of the moverProcess context")
     @Test

@@ -1,9 +1,9 @@
-package org.maxron.platform.moverprocess.mstest;
+package org.maxron.platform.moverprocess.libtest;
 
 import brave.Tracing;
 import org.maxron.platform.moverprocess.MoverProcess;
 import org.maxron.platform.moverprocess.MoverProcessProperties;
-import org.maxron.platform.moverprocess.mstest.config.TwConfiguration;
+import org.maxron.platform.moverprocess.libtest.config.TwConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -23,7 +23,7 @@ import org.springframework.test.context.jdbc.Sql;
 )
 @ActiveProfiles("ms-test")
 @Slf4j
-class BaseMsTest {
+class BaseLibTest {
 
     @Autowired
     protected MoverProcess moverProcess;
