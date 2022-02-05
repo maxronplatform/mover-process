@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("The Mover Process application tests")
 @EnableMoverProcess
-public class MoverProcessMsTests extends BaseMsTest {
+class MoverProcessMsTests extends BaseMsTest {
 
     @DisplayName("Checking the loading of the moverProcess context")
     @Test
